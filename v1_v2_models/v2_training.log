@@ -1,0 +1,108 @@
+============================================================
+V2: TEMPORAL EARLY DETECTION MODEL
+============================================================
+
+Loading user split from V1...
+Train users: 36,042
+Val users:   9,011
+User overlap (should be 0): 0
+
+============================================================
+LOADING WINDOW-LEVEL DATA
+============================================================
+Loading 2019... 17,478 windows
+Loading 2020... 22,297 windows
+Loading 2021... 28,049 windows
+Loading 2022... 16,363 windows
+
+Combined: 84,187 windows, 45,053 users
+
+============================================================
+REMOVING POST-CRISIS WINDOWS
+============================================================
+Windows before: 84,187
+Windows after:  41,522
+Removed:        42,665 post-crisis windows
+
+============================================================
+APPLYING V1 USER SPLIT
+============================================================
+Train windows: 33,090 (positive: 858, rate: 2.59%)
+Val windows:   8,432 (positive: 262, rate: 3.11%)
+
+============================================================
+TRAINING XGBOOST (V2 - Temporal)
+============================================================
+scale_pos_weight: 37.6
+Training...
+Model trained.
+
+============================================================
+V2 VALIDATION SET EVALUATION
+============================================================
+
+Metric                         Value
+-------------------------------------
+Recall (PRIMARY)              0.0802
+Precision                     0.2234
+F1 Score                      0.1180
+AUPRC                         0.1603
+AUROC                         0.8842
+
+Confusion Matrix:
+  TN= 8,097   FP=    73
+  FN=   241   TP=    21
+
+  (FN = missed pre-crisis windows — minimize for early detection)
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Normal       0.97      0.99      0.98      8170
+  Pre-Crisis       0.22      0.08      0.12       262
+
+    accuracy                           0.96      8432
+   macro avg       0.60      0.54      0.55      8432
+weighted avg       0.95      0.96      0.95      8432
+
+
+============================================================
+TOP 20 MOST IMPORTANT FEATURES
+============================================================
+  post_count                                    0.1563
+  win_emb_123                                   0.0114
+  win_posting_freq_per_day                      0.0113
+  win_emb_205                                   0.0073
+  win_emb_242                                   0.0069
+  win_emb_335                                   0.0069
+  win_emb_236                                   0.0061
+  win_emb_101                                   0.0054
+  win_emb_104                                   0.0047
+  win_emb_088                                   0.0041
+  win_emb_347                                   0.0040
+  win_emb_072                                   0.0040
+  win_emb_243                                   0.0039
+  win_emb_212                                   0.0038
+  win_emb_247                                   0.0038
+  win_emb_097                                   0.0038
+  win_emb_340                                   0.0037
+  win_emb_353                                   0.0037
+  win_emb_256                                   0.0036
+  win_emb_217                                   0.0034
+
+============================================================
+SAVING MODEL
+============================================================
+Saved: v2_xgb_model.pkl
+Saved: v2_feature_columns.pkl
+Saved: v2_feature_importance.csv
+Saved: v2_metrics.pkl
+
+============================================================
+V2 FINAL ASSESSMENT
+============================================================
+Recall (early detection):  0.0802
+AUPRC:                     0.1603
+⚠️  V2 recall is below 0.50. May need further tuning.
+
+✅ V2 COMPLETE.

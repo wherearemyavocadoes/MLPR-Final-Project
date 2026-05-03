@@ -1,0 +1,92 @@
+============================================================
+FINAL EVALUATION WITH OPTIMIZED THRESHOLDS
+============================================================
+V1 threshold: 0.35
+V2 threshold: 0.06
+
+
+============================================================
+V1 FINAL RESULTS (threshold=0.35)
+============================================================
+Validation users: 9,011
+Crisis users in val: 4,341
+
+Metric                         Value
+-------------------------------------
+Threshold                     0.3500
+Recall (PRIMARY)              0.8763
+Precision                     0.7427
+F1 Score                      0.8040
+AUROC                         0.8869
+AUPRC                         0.8763
+
+Confusion Matrix:
+  TN= 3,352   FP= 1,318
+  FN=   537   TP= 3,804
+
+Classification Report:
+              precision    recall  f1-score   support
+
+  Non-Crisis       0.86      0.72      0.78      4670
+      Crisis       0.74      0.88      0.80      4341
+
+    accuracy                           0.79      9011
+   macro avg       0.80      0.80      0.79      9011
+weighted avg       0.80      0.79      0.79      9011
+
+
+
+============================================================
+V2 FINAL RESULTS (threshold=0.06)
+============================================================
+Validation windows: 8,432
+Positive windows in val: 262 (3.11%)
+
+Metric                         Value
+-------------------------------------
+Threshold                     0.0600
+Recall (PRIMARY)              0.7137
+Precision                     0.1176
+F1 Score                      0.2019
+AUROC                         0.8842
+AUPRC                         0.1603
+
+Confusion Matrix:
+  TN= 6,767   FP= 1,403
+  FN=    75   TP=   187
+
+Classification Report:
+              precision    recall  f1-score   support
+
+      Normal       0.99      0.83      0.90      8170
+  Pre-Crisis       0.12      0.71      0.20       262
+
+    accuracy                           0.82      8432
+   macro avg       0.55      0.77      0.55      8432
+weighted avg       0.96      0.82      0.88      8432
+
+
+
+============================================================
+SIDE-BY-SIDE COMPARISON: DEFAULT vs OPTIMIZED
+============================================================
+
+                                         V1 (User-Level)                   V2 (Temporal)
+                                 Default      Optimized         Default      Optimized
+----------------------------------------------------------------------------------------------------
+Threshold                           0.50           0.35            0.50           0.06
+Recall                            0.6273         0.8763          0.0802         0.7137
+Precision                         0.8742         0.7427          0.2234         0.1176
+F1 Score                          0.7304         0.8040          0.1180         0.2019
+AUROC                             0.8788         0.8869          0.8842         0.8842
+AUPRC                             0.8688         0.8763          0.1603         0.1603
+Missed (FN)                        1,618            537             241             75
+Caught (TP)                        2,723          3,804              21            187
+
+
+Saved: v1_final_metrics.pkl
+Saved: v2_final_metrics.pkl
+Saved: optimized_thresholds.pkl
+Saved: final_evaluation.log
+
+✅ FINAL EVALUATION COMPLETE.

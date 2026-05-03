@@ -1,0 +1,104 @@
+============================================================
+V1: USER-LEVEL CRISIS DETECTION MODEL
+============================================================
+
+Loading user-level dataset...
+Total users: 45,053
+Total columns: 446
+Feature columns: 444
+
+Label distribution:
+  Non-crisis (0): 23,351
+  Crisis (1):     21,702
+  Crisis rate:    48.2%
+
+============================================================
+USER-LEVEL TRAIN/VALIDATION SPLIT (80-20)
+============================================================
+Train users: 36,042
+Val users:   9,011
+Train crisis: 17,361 (48.2%)
+Val crisis:   4,341 (48.2%)
+User overlap (should be 0): 0
+
+Saved user split: user_split.pkl
+
+============================================================
+TRAINING DATA (no undersampling — near-balanced)
+============================================================
+Training on ALL data: 18,681 negative, 17,361 positive (48.2%)
+
+============================================================
+TRAINING XGBOOST (V1 - Simple, No Undersampling)
+============================================================
+scale_pos_weight: 1.08
+Training...
+Model trained.
+
+============================================================
+V1 VALIDATION SET EVALUATION
+============================================================
+
+Metric                         Value
+-------------------------------------
+Recall (PRIMARY)              0.7987
+Precision                     0.7983
+F1 Score                      0.7985
+AUROC                         0.8869
+AUPRC                         0.8763
+
+Confusion Matrix:
+  TN= 3,794   FP=   876
+  FN=   874   TP= 3,467
+
+  (FN = missed crisis users — should be as low as possible)
+
+Classification Report:
+              precision    recall  f1-score   support
+
+  Non-Crisis       0.81      0.81      0.81      4670
+      Crisis       0.80      0.80      0.80      4341
+
+    accuracy                           0.81      9011
+   macro avg       0.81      0.81      0.81      9011
+weighted avg       0.81      0.81      0.81      9011
+
+
+============================================================
+TOP 20 MOST IMPORTANT FEATURES
+============================================================
+  user_win_emb_212                              0.0799
+  user_win_emb_191                              0.0230
+  user_win_emb_357                              0.0192
+  user_win_emb_104                              0.0186
+  user_win_emb_123                              0.0172
+  user_win_emb_139                              0.0140
+  user_win_emb_279                              0.0118
+  user_win_emb_340                              0.0077
+  user_win_emb_215                              0.0070
+  user_win_emb_101                              0.0069
+  user_win_emb_150                              0.0067
+  user_win_emb_091                              0.0065
+  user_win_emb_098                              0.0064
+  user_win_emb_318                              0.0061
+  user_win_emb_208                              0.0057
+  user_win_emb_003                              0.0056
+  user_win_emb_247                              0.0056
+  user_win_emb_197                              0.0055
+  user_win_emb_331                              0.0054
+  user_win_emb_066                              0.0048
+
+============================================================
+SAVING MODEL
+============================================================
+Saved: v1_xgb_model.pkl
+Saved: v1_feature_columns.pkl
+Saved: v1_feature_importance.csv
+Saved: v1_metrics.pkl
+Saved: user_split.pkl
+
+============================================================
+V1 CHECKPOINT
+============================================================
+✅ PASS — Recall = 0.7987 (≥ 0.50)
+→ V1 successfully detects crisis users. Proceed to V2.
